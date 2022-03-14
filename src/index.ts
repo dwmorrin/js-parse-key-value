@@ -1,14 +1,25 @@
+export interface ParseOptions {
+  delimiter?: string;
+  IFS?: RegExp;
+  quotes?: string;
+  debug?: boolean;
+}
+
 /**
  * parse "'key': 'value'" input
  *
  * language syntax:
- *  key and value can be anything except
- *  ':' and quotes,
- *  which can be used to create keys and
- *  values with white space
+ *  delimiter: default ':', can be any string
+ *  IFS: default /\s+/, can be any RegExp
+ *  quotes: default `"'`, can be any string
+ *
+ * The string "key1: value1 key2: value2" is parsed as
+ * {key1: "value1", key2: "value2"}
  */
-
-function parse(s, options = {}) {
+function parse(
+  s: string,
+  options = {} as ParseOptions
+): Record<string, string> {
   const {
     delimiter = ":",
     IFS = /\s+/,
@@ -20,10 +31,10 @@ function parse(s, options = {}) {
   let key = "";
   let word = "";
   let quote = false;
-  const res = {};
+  const res: Record<string, string> = {};
   while (chars.length) {
     if (debug) console.log({ chars, res, key, word, quote });
-    const token = chars.pop();
+    const token = chars.pop() || ""; // should never be undefined
     if (quotes.includes(token)) quote = !quote;
     else if (token === delimiter) {
       if (quote) word += token;

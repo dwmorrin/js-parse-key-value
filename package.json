@@ -2,14 +2,17 @@
   "name": "js-parse-key-value",
   "version": "1.0.0",
   "description": "parse key:value input",
-  "main": "index.js",
+  "files": [
+    "lib/**/*"
+  ],
+  "main": "lib/index.js",
   "type": "module",
   "scripts": {
     "test": "node test.js"
   },
   "repository": {
     "type": "git",
-    "url": "githubcom/dwmorrin/js-parse-key-value"
+    "url": "https://github.com/dwmorrin/js-parse-key-value"
   },
   "keywords": [
     "parse"
