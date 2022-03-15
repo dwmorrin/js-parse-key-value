@@ -3,6 +3,7 @@ export interface ParseOptions {
   IFS?: RegExp;
   quotes?: string;
   debug?: boolean;
+  trim?: boolean;
 }
 
 /**
@@ -25,8 +26,9 @@ function parse(
     IFS = /\s+/,
     quotes = `"'`,
     debug = false,
+    trim = true,
   } = options;
-  const chars = s.split("");
+  const chars = trim ? s.trim().split("") : s.split("");
   chars.reverse();
   let key = "";
   let word = "";
